@@ -66,7 +66,7 @@ class WfRacConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
         try:
-            airco_id = await hass.async_add_executor_job(repository.get_details)
+            airco_id = await hass.async_add_executor_job(repository.get_airco_id)
         except Exception as query_failed:
             raise CannotConnect(reason=str(query_failed)) from query_failed
 
