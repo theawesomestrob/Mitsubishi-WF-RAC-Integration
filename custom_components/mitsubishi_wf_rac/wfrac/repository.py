@@ -66,9 +66,13 @@ class Repository:
                 await asyncio.sleep(wait_for)
 
             _HTTP_LOG.debug("POSTing to %s: %r", url, data)
-            response = await self._hass.async_add_executor_job(
-                functools.partial(requests.post, url, json=data, timeout=30)
-            )
+            try:
+                response = await self._hass.async_add_executor_job(
+                    functools.partial(requests.post, url, json=data, timeout=30)
+                )
+            except requests.exceptions.RequestException as ex:
+                _HTTP_LOG.warning("Error POSTing to %s: %s", url, ex)
+                raise
 
             _HTTP_LOG.debug(
                 "Got response (%r) from %r: %r",
@@ -83,6 +87,7 @@ class Repository:
         # raise an exception if the airco returned an error, let the caller figure it out
         response.raise_for_status()
 
+        _LOGGER.debug("Got response: %r", response.text)
         return response.json()
 
     async def get_info(self) -> dict:

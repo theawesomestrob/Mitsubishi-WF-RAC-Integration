@@ -1,23 +1,29 @@
 """Constants used by the mitsubishi-wf-rac component."""
 
+from datetime import timedelta
 from homeassistant.const import CONF_ICON, CONF_NAME, CONF_TYPE
 from homeassistant.components.climate.const import (
     HVACMode,
     ClimateEntityFeature,
-    HVACMode,
     FAN_AUTO,
 )
 
 DOMAIN = "mitsubishi_wf_rac"
 DEVICES = "wf-rac-devices"
 
+MIN_TIME_BETWEEN_UPDATES=timedelta(seconds=60)
+
 CONF_OPERATOR_ID = "operator_id"
 CONF_AIRCO_ID = "airco_id"
+CONF_AVAILABILITY_CHECK = "availability_check"
+CONF_AVAILABILITY_RETRY_LIMIT = "availability_retry_limit"
+CONF_CREATE_SWING_MODE_SELECT = "create_swing_mode_select"
 ATTR_DEVICE_ID = "device_id"
 ATTR_CONNECTED_ACCOUNTS = "connected_accounts"
 
 ATTR_INSIDE_TEMPERATURE = "inside_temperature"
 ATTR_OUTSIDE_TEMPERATURE = "outside_temperature"
+ATTR_TARGET_TEMPERATURE = "target_temperature"
 
 SENSOR_TYPE_TEMPERATURE = "temperature"
 
@@ -39,6 +45,7 @@ SERVICE_SET_VERTICAL_SWING_MODE = "set_vertical_swing_mode"
 
 SUPPORT_FLAGS = (
     ClimateEntityFeature.FAN_MODE
+    | ClimateEntityFeature.SWING_HORIZONTAL_MODE
     | ClimateEntityFeature.SWING_MODE
     | ClimateEntityFeature.TARGET_TEMPERATURE
     | ClimateEntityFeature.TURN_OFF
@@ -96,7 +103,7 @@ SUPPORT_SWING_MODES = [
     SWING_3D_AUTO,
 ]
 
-HORIZONTAL_SWING_MODE_TRANSLATION = {
+SWING_HORIZONTAL_MODE_TRANSLATION = {
     SWING_HORIZONTAL_AUTO: 0,
     SWING_HORIZONTAL_POSITION_1: 1,
     SWING_HORIZONTAL_POSITION_2: 2,
@@ -107,7 +114,7 @@ HORIZONTAL_SWING_MODE_TRANSLATION = {
     SWING_HORIZONTAL_POSITION_7: 7,
 }
 
-SUPPORT_HORIZONTAL_SWING_MODES = [
+SUPPORT_SWING_HORIZONTAL_MODES = [
     SWING_HORIZONTAL_AUTO,
     SWING_HORIZONTAL_POSITION_1,
     SWING_HORIZONTAL_POSITION_2,
@@ -116,6 +123,7 @@ SUPPORT_HORIZONTAL_SWING_MODES = [
     SWING_HORIZONTAL_POSITION_5,
     SWING_HORIZONTAL_POSITION_6,
     SWING_HORIZONTAL_POSITION_7,
+    SWING_3D_AUTO,
 ]
 
 
